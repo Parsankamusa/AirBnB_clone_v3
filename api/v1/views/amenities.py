@@ -13,19 +13,12 @@ def amenity_get_all():
     retrieves all Amenity objects
     :return: json of all states
     """
-    if amenity_id is None:
-        am_list = []
-        am_obj = storage.all("Amenity")
-        for obj in am_obj.values():
-            am_list.append(obj.to_dict())
+    am_list = []
+    am_obj = storage.all("Amenity")
+    for obj in am_obj.values():
+        am_list.append(obj.to_dict())
 
-        return jsonify(am_list)
-    else:
-        am_list = storage.get(Amenity, amenity_id)
-        if not amenity:
-            abort(404)
-
-    return jsonify(amenity.to_dict())
+    return jsonify(am_list)
 
 
 @app_views.route("/amenities", methods=["POST"], strict_slashes=False)
