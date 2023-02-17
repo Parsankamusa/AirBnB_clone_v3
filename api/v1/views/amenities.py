@@ -8,17 +8,25 @@ from models.amenity import Amenity
 
 
 @app_views.route("/amenities", methods=["GET"], strict_slashes=False)
-def amenity_get_all():
+@app_views.route("/amenities/<amenity_id>", methods=["GET"], strict_slashes=False)
+def amenity_get_all(amenity_id=None):
     """
     retrieves all Amenity objects
     :return: json of all states
     """
-    am_list = []
-    am_obj = storage.all("Amenity")
-    for obj in am_obj.values():
-        am_list.append(obj.to_json())
+    if amenity_id is None:
+        am_list = []
+        am_obj = storage.all("Amenity")
+        for obj in am_obj.values():
+            am_list.append(obj.to_dict())
 
-    return jsonify(am_list)
+        return jsonify(am_list)
+    else:
+        am_list = storage.get(Amenity, amenity_id)
+        if not amenity:
+            abort(404)
+
+    return jsonify(amenity.to_dict())
 
 
 @app_views.route("/amenities", methods=["POST"], strict_slashes=False)
