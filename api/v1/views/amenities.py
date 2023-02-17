@@ -8,8 +8,7 @@ from models.amenity import Amenity
 
 
 @app_views.route("/amenities", methods=["GET"], strict_slashes=False)
-@app_views.route("/amenities/<amenity_id>", methods=["GET"], strict_slashes=False)
-def amenity_get_all(amenity_id=None):
+def amenity_get_all():
     """
     retrieves all Amenity objects
     :return: json of all states
